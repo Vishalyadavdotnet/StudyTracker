@@ -1,0 +1,6 @@
+[
+  { "date": "2025-09-11", "hours": 2, "subject": "Math", "chapter": "chapter-name", "notes": "school studies" }, 
+  { "date": "2025-09-11", "hours": 1, "subject": "Science", "chapter": "chapter-name", "notes": "school studies" }, 
+  { "date": "2025-09-10", "hours": 1.5, "subject": "English", "chapter": "chapter-name", "notes": "school studies" },
+  { "date": "2025-09-10", "hours": 2, "subject": "Math", "chapter": "chapter-name", "notes": "school studies" }
+]
