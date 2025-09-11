@@ -1,0 +1,55 @@
+:root {
+    --bg-color: #f5f5f5;
+    --text-color: #333;
+    --card-bg: #fff;
+    --card-shadow: rgba(0, 0, 0, 0.1);
+    --accent-color: #007bff;
+}
+
+body.light {
+    --bg-color: #f5f5f5;
+    --text-color: #333;
+    --card-bg: #fff;
+    --card-shadow: rgba(0, 0, 0, 0.1);
+    --accent-color: #007bff;
+}
+
+body.dark {
+    --bg-color: #1e1e1e;
+    --text-color: #f5f5f5;
+    --card-bg: #2a2a2a;
+    --card-shadow: rgba(0, 0, 0, 0.4);
+    --accent-color: #bb86fc;
+}
+
+body.pink {
+    --bg-color: #ffe4ec;
+    --text-color: #4a154b;
+    --card-bg: #fff0f6;
+    --card-shadow: rgba(255, 20, 147, 0.2);
+    --accent-color: #ff69b4;
+}
+
+body.mint {
+    --bg-color: #e6fffa;
+    --text-color: #004d40;
+    --card-bg: #ffffff;
+    --card-shadow: rgba(0, 150, 136, 0.2);
+    --accent-color: #20c997;
+}
+
+body.purple {
+    --bg-color: #2d0036;
+    --text-color: #f0e6ff;
+    --card-bg: #3b0a4d;
+    --card-shadow: rgba(168, 85, 247, 0.3);
+    --accent-color: #a855f7;
+}
+
+body.sunset {
+    --bg-color: #fff4e6;
+    --text-color: #7f1d1d;
+    --card-bg: #ffe0b2;
+    --card-shadow: rgba(255, 112, 67, 0.3);
+    --accent-color: #ff7043;
+}

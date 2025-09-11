@@ -32,10 +32,18 @@ import {
 import { getWeeklyTrend, getMonthlyTrend } from "../utils/trendAnalytics";
 import TrendChart from "../components/TrendChart";
 
+import CoinsSystem from "../components/CoinsSystem";
+import ThemeToggle from "../components/ThemeToggle";
+
+import TimeOfDayChart from "../components/TimeOfDayChart";
+import { analyzeTimeOfDay } from "../utils/timeOfDay";
+import WeekdayHeatmap from "../components/WeekdayWeekendComparison";
+
 const Dashboard = () => {
   const [data, setData] = useState([]);
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
+  const [theme, setTheme] = useState("light");
 
   useEffect(() => {
     fetch("/data.json")
@@ -44,14 +52,16 @@ const Dashboard = () => {
       .catch((err) => console.error(err));
   }, []);
 
+  useEffect(() => {
+    document.documentElement.setAttribute("data-theme", theme);
+  }, [theme]);
+
   const chartData = getChartData(data, startDate, endDate);
   const currentMonthName = new Date().toLocaleString("default", {
     month: "long",
   });
 
-  // inside Dashboard component
   const subjectTotals = getSubjectTotals(data, startDate, endDate);
-
   const avgDailyPerSubject = getAverageDailyHoursPerSubject(
     data,
     startDate,
@@ -64,35 +74,47 @@ const Dashboard = () => {
   const monthlyTrend = getMonthlyTrend(data);
   const bestDay = getBestDay(data, startDate, endDate);
 
+  const timeOfDayData = analyzeTimeOfDay(data);
+
   return (
     <div className="dashboard">
+      {/* Theme Switcher */}
+      <ThemeToggle />
+
       <h1>Study Tracker Dashboard</h1>
       <h3>Student: Sakshi Yadav</h3>
 
-      {/* Stat Cards */}
-      <StatCard title="Today’s Hours" value={`${getTodayHours(data)} hours`} />
-      <StatCard
-        title="Weekly Total (Last 7 Days)"
-        value={`${getWeeklyHours(data)} hours`}
-      />
-      <StatCard
-        title={`${currentMonthName} Total`}
-        value={`${getMonthlyHours(data)} hours`}
-      />
-      <StatCard
-        title="Average Daily Hours (This Month)"
-        value={`${calculateAverageDailyHours(data)} hours`}
-      />
-      <StatCard
-        title="Longest Study Streak"
-        value={`${calculateLongestStreak(data)} days`}
-      />
-      {bestDay && (
+      {/* Stat Cards in Grid */}
+      <div className="stat-cards">
         <StatCard
-          title="Best Day"
-          value={`${bestDay.date}: ${bestDay.hours}h`}
+          title="Today’s Hours"
+          value={`${getTodayHours(data)} hours`}
         />
-      )}
+        <StatCard
+          title="Weekly Total (Last 7 Days)"
+          value={`${getWeeklyHours(data)} hours`}
+        />
+        <StatCard
+          title={`${currentMonthName} Total`}
+          value={`${getMonthlyHours(data)} hours`}
+        />
+        <StatCard
+          title="Average Daily Hours (This Month)"
+          value={`${calculateAverageDailyHours(data)} hours`}
+        />
+        <StatCard
+          title="Longest Study Streak"
+          value={`${calculateLongestStreak(data)} days`}
+        />
+        {bestDay && (
+          <StatCard
+            title="Best Day"
+            value={`${bestDay.date}: ${bestDay.hours}h`}
+          />
+        )}
+      </div>
+
+      <TimeOfDayChart data={timeOfDayData} />
 
       {/* Advanced Analytics per Subject */}
       <div className="section">
@@ -131,6 +153,14 @@ const Dashboard = () => {
         label2="This Week"
       />
 
+      {/* Date Filter */}
+      <DateFilter
+        startDate={startDate}
+        endDate={endDate}
+        setStartDate={setStartDate}
+        setEndDate={setEndDate}
+      />
+
       {/* Monthly Trend */}
       <TrendChart
         title="Monthly Trend Comparison"
@@ -138,14 +168,6 @@ const Dashboard = () => {
         data2={monthlyTrend.thisMonth}
         label1="Last Month"
         label2="This Month"
-      />
-
-      {/* Date Filter */}
-      <DateFilter
-        startDate={startDate}
-        endDate={endDate}
-        setStartDate={setStartDate}
-        setEndDate={setEndDate}
       />
 
       {/* Charts */}
@@ -165,6 +187,12 @@ const Dashboard = () => {
 
       {/* Motivation */}
       <Motivation />
+
+      {/* Coins System */}
+      <CoinsSystem data={data} />
+
+      <h2>Weekday vs Weekend Study</h2>
+      <WeekdayHeatmap data={data} />
     </div>
   );
 };

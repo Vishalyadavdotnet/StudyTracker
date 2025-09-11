@@ -1,53 +1,70 @@
+:root {
+    --bg-color: #f5f5f5;
+    --text-color: #333;
+    --card-bg: #fff;
+}
+
+[data-theme="dark"] {
+    --bg-color: #121212;
+    --text-color: #eee;
+    --card-bg: #1e1e1e;
+}
+
 /* General Body */
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    background-color: #f5f5f5;
-    color: #333;
+    background-color: var(--bg-color);
+    color: var(--text-color);
     display: flex;
     justify-content: center;
-    /* center dashboard horizontally */
     padding: 2rem 0;
-    /* vertical spacing top-bottom */
 }
 
 /* Dashboard Container */
 .dashboard {
     width: 100%;
-    max-width: 900px;
+    max-width: 1000px;
     padding: 2rem;
-    /* thoda extra padding for desktop */
     box-sizing: border-box;
-    /* include padding in width */
 }
 
 /* Student Name */
 .dashboard h3 {
     font-size: 1.1rem;
-    color: #555;
+    color: var(--text-color);
+    margin-bottom: 2rem;
+}
+
+/* Grid for Stat Cards */
+.stat-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.2rem;
     margin-bottom: 2rem;
 }
 
 /* Section Cards */
 .section {
-    background-color: #fff;
+    background-color: var(--card-bg);
     padding: 1rem 1.2rem;
     margin-bottom: 1.5rem;
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(0, 0, 0, 0.05);
     transition: transform 0.2s;
+    backdrop-filter: blur(6px);
 }
 
 .section:hover {
     transform: translateY(-3px);
-    /* subtle hover effect */
 }
 
 /* Section Titles */
 .section h2 {
     font-size: 1.2rem;
     margin-bottom: 0.8rem;
-    color: #444;
+    color: var(--text-color);
 }
 
 /* Section Content */
@@ -59,9 +76,21 @@ p {
     line-height: 1.5;
 }
 
-/* List Items for subjects or daily totals */
-ul li {
-    margin-bottom: 0.5rem;
+/* Theme toggle button */
+.theme-toggle {
+    background: var(--card-bg);
+    border: none;
+    padding: 0.6rem 1.2rem;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+    color: var(--text-color);
+}
+
+.theme-toggle:hover {
+    opacity: 0.9;
 }
 
 /* Responsive tweaks */
@@ -100,5 +129,16 @@ ul li {
     ul li,
     p {
         font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 600px) {
+    .stat-cards {
+        grid-template-columns: 1fr;
+        gap: 0.8rem;
+    }
+
+    .section {
+        padding: 0.7rem;
     }
 }
