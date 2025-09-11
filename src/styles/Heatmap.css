@@ -1,0 +1,13 @@
+.heatmap-container {
+    display: flex;
+    gap: 10px;
+    margin: 10px 0;
+}
+
+.heatmap-cell {
+    flex: 1;
+    padding: 10px;
+    text-align: center;
+    border-radius: 5px;
+    color: white;
+}
